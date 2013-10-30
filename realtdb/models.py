@@ -13,3 +13,9 @@ class House(models.Model):
     address = models.CharField(max_length=100)
     area = models.FloatField(help_text=u"In square meters")
     price = models.DecimalField(max_digits=11, decimal_places=2)
+
+
+class Apartment(House):
+    rooms = models.IntegerField()
+    floor = models.IntegerField()
+    floors = models.IntegerField()
