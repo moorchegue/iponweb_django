@@ -37,7 +37,7 @@ def house_list(request):
         else:
             result['error'] = 'Form validation error'
 
-    result['house_list'] = House.objects.order_by('-id')
+    result['house_list'] = House.objects.order_by('-id').select_related()
     return render(request, "realtdb/houses.html", result)
 
 
@@ -61,5 +61,5 @@ def apartment_list(request):
         else:
             result['error'] = 'Form validation error'
 
-    result['apartment_list'] = Apartment.objects.order_by('-id')
+    result['apartment_list'] = Apartment.objects.order_by('-id').select_related()
     return render(request, "realtdb/apartments.html", result)
