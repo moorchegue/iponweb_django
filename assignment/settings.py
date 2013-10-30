@@ -115,6 +115,7 @@ ROOT_URLCONF = 'realtdb.urls'
 WSGI_APPLICATION = 'assignment.wsgi.application'
 
 TEMPLATE_DIRS = (
+    os.path.abspath(os.path.join(_REALTDB_DIR, 'templates/realtdb'))
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.

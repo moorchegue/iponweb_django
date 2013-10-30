@@ -1,76 +1,49 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>{% block title %}List of houses{% endblock %}</title>
-    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
-  </head>
-  <body>
-    <div class="container">
-      {% block navbar %}
-      <div class="navbar">
+{% extends "base.html" %}
+
+{% block title %}List of houses{% endblock %}
+
+{% block navbar %}
+  <div class="navbar">
 	<div class="navbar-inner">
 	  <ul class="nav">
-	    <li class="active"><a href="{% url realtdb-houses %}">Houses</a></li>
-	    <li><a href="#">Apartments</a></li>
+        <li class="active"><a>Houses</a></li>
+        <li><a href="{% url 'realtdb-apartments' %}">Apartments</a></li>
 	  </ul>
 	</div>
-      </div>
-      {% endblock %}
+  </div>
+{% endblock %}
 
-      {% block content %}
-      <h1>Directory of houses</h1>
-      <form action="." method="post">{% csrf_token %}
-	<table>
-	  <tr><td><label for="id_address">Address: </label></td><td><input id="id_address" type="text" name="address" /></td></tr>
-	  <tr><td><label for="id_area">Area: </label></td><td><input id="id_area" type="text" name="area" /></td></tr>
-	  <tr><td><label for="id_price">Price: </label></td><td><input id="id_price" type="text" name="price" /></td></tr>
-	</table>
-	<p><input type="submit" value="Add to list" /></p>
-      </form>
-      <h2>List of known houses</h2>
-      <table class="table table-striped">
-	<thead>
-	  <tr><th>Address</th><th>Area (m<sup>2</sup>)</th><th>Price</th><th>Realtor</th></tr>
-	</thead>
-	<tbody>
-	  {% for house in house_list %}
-	  <tr><td>{{ house.address }}</td><td>{{ house.area }}</td><td>{{ house.price }}</td><td>{{ house.realtor.name }}</td></tr>
-	  {% endfor %}
-	</tbody>
-      </table>
-      {% endblock content %}
-      
-      {% block query_debug %}
-      {% if debug %}
-      <button type="button" class="btn" data-toggle="collapse" data-target="#debug">Show SQL</button>
+{% block content %}
+<h1>Directory of houses</h1>
 
-      <div id="debug" class="collapse">
-        <table class="table table-condensed table-bordered">
-          <col width="1"></col>
-          <col></col>
-          <col width="1"></col>
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">SQL</th>
-              <th scope="col">Time</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for query in sql_queries %}
-	    <tr class="{% cycle odd,even %}">
-              <td>{{ forloop.counter }}</td>
-              <td>{{ query.sql|escape }}</td>
-              <td>{{ query.time }}</td>
-            </tr>
-	    {% endfor %}
-          </tbody>
-        </table>
-      </div>
-      {% endif %}
-      {% endblock query_debug %}
-    </div>
-  </body>
-</html>
+<form action="." method="post">{% csrf_token %}
+    <table>
+      <tr><td><label for="id_address">Address: </label></td><td><input id="id_address" type="text" name="address" /></td></tr>
+      <tr><td><label for="id_area">Area: </label></td><td><input id="id_area" type="text" name="area" /></td></tr>
+      <tr><td><label for="id_price">Price: </label></td><td><input id="id_price" type="text" name="price" /></td></tr>
+    </table>
+    <p><input type="submit" value="Add to list" /></p>
+</form>
+
+<h2>List of known houses</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Address</th>
+            <th>Area (m<sup>2</sup>)</th>
+            <th>Price</th>
+            <th>Realtor</th></tr>
+    </thead>
+    <tbody>
+        {% for house in house_list %}
+        <tr>
+            <td>{{ house.address }}</td>
+            <td>{{ house.area }}</td>
+            <td>{{ house.price }}</td>
+            <td>{{ house.realtor.name }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

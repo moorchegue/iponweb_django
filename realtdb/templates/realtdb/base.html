@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block title %}List of houses{% endblock %}</title>
+    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      {% block navbar %}
+      {% endblock %}
+
+      {% block content %}
+      {% endblock content %}
+
+      {% block query_debug %}
+      {% if debug %}
+      <button type="button" class="btn" data-toggle="collapse" data-target="#debug">Show SQL</button>
+
+      <div id="debug" class="collapse">
+        <table class="table table-condensed table-bordered">
+          <col width="1"></col>
+          <col></col>
+          <col width="1"></col>
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">SQL</th>
+              <th scope="col">Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for query in sql_queries %}
+	    <tr class="{% cycle odd,even %}">
+              <td>{{ forloop.counter }}</td>
+              <td>{{ query.sql|escape }}</td>
+              <td>{{ query.time }}</td>
+            </tr>
+	    {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
+      {% endblock query_debug %}
+    </div>
+  </body>
+</html>
