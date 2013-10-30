@@ -17,6 +17,7 @@
 <h1>Directory of houses</h1>
 
 <form action="." method="post">{% csrf_token %}
+    <p>{{ error }}</p>
     <table>
       <tr><td><label for="id_address">Address: </label></td><td><input id="id_address" type="text" name="address" /></td></tr>
       <tr><td><label for="id_area">Area: </label></td><td><input id="id_area" type="text" name="area" /></td></tr>
