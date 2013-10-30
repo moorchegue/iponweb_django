@@ -1,6 +1,7 @@
 # Django settings for assignment project.
 
 import os.path
+import sys
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -12,6 +13,10 @@ ADMINS = (
 MANAGERS = ADMINS
 
 _PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+_REALTDB_DIR = os.path.abspath(os.path.join(_PROJECT_DIR, '../realtdb'))
+
+sys.path.append(_REALTDB_DIR)
+
 _DB_FILE_NAME = os.path.join(_PROJECT_DIR, "assignment.db")
 
 DATABASES = {
@@ -104,7 +109,7 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'assignment.urls'
+ROOT_URLCONF = 'realtdb.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'assignment.wsgi.application'
@@ -116,6 +121,7 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
+    'realtdb',
     #'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
